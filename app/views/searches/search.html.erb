@@ -1,0 +1,41 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+     <th></th>
+     <th>Title</th>
+     <th>Opinion</th>
+     <th colspan="3"></th>
+    </tr>
+  </thead>
+
+	<h3><%= @model %> search for '<%= @content %>'</h3>
+	<% @records.each do |record| %>
+	  <tbody>
+		<tr>
+			
+			<% if @model == 'user' %>
+			  <td><%= attachment_image_tag record, :profile_image, :fill,40,40, format: "jpeg", class: "attachment user profile_image", fallback: "no_image.jpg" %>
+			  </td>
+			  <td>
+			  	<%= record.name %>
+			  </td>
+			  <td>
+			    <%= record.introduction %>
+			  </td>
+			  <% else @model == 'books' %>
+			  <td><%= attachment_image_tag record.user, :profile_image, :fill,40,40, format: "jpeg", class: "attachment user profile_image", fallback: "no_image.jpg" %>
+			  </td>
+			  <td>
+			  	<%= record.title %>
+			  </td>
+			  <td>
+			    <%= record.body %>
+			  </td>
+			  <td>
+			  </td>
+
+			<% end %>
+		</tr>
+	  </tbody>
+	<% end %>
+ </table>

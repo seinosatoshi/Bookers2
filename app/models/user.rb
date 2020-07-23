@@ -5,8 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          validates :name, presence: true
-         validates :name, length: {minimum: 2}
-         validates :name, length: {maximum: 20}
+         validates :name, presence: true, length: {maximum: 10, minimum: 2}, uniqueness: true
          validates :introduction, length: {maximum: 50}
 
     has_many :books, dependent: :destroy
@@ -16,7 +15,7 @@ class User < ApplicationRecord
     has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォロワー取得
     has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
     has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
-    attachment :profile_image
+    attachment :profile_image, destroy: false
 
     # ユーザーをフォローする
     def follow(user_id)
